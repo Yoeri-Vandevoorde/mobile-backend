@@ -64,7 +64,8 @@ public class UserController {
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
-        auth = new AuthenticationResponse(auth.message(), null, auth.username());
+        // Return the full auth response including the token for mobile app compatibility
+        // The token is sent both as a cookie (for web) and in response body (for mobile)
         return ResponseEntity.ok(auth);
     }
 
