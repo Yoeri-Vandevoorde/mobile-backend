@@ -47,6 +47,7 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain authEndpoints(HttpSecurity http) throws Exception {
         return http
+                .cors(Customizer.withDefaults()) // <--- Toevoegen voor login/signup
                 .securityMatcher("/users/login", "/users/signup")
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
@@ -57,6 +58,7 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain api(HttpSecurity http) throws Exception {
         return http
+                .cors(Customizer.withDefaults()) // <--- Toevoegen voor je API calls
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
@@ -67,11 +69,11 @@ public class SecurityConfig {
                         "/webjars/**"
                     ).permitAll()
                     .anyRequest().authenticated()
-            )
-            .oauth2ResourceServer(oauth ->
-                    oauth.jwt(Customizer.withDefaults())
-            )
-            .build();
+                )
+                .oauth2ResourceServer(oauth ->
+                        oauth.jwt(Customizer.withDefaults())
+                )
+                .build();
     }
 
     @Bean
