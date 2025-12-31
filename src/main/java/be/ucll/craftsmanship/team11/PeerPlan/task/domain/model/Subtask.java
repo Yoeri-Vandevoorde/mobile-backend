@@ -29,6 +29,7 @@ public class Subtask implements Workable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @com.fasterxml.jackson.annotation.JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id", nullable = false)
     @com.fasterxml.jackson.annotation.JsonIgnore

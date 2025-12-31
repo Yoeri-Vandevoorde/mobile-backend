@@ -5,6 +5,7 @@ import be.ucll.craftsmanship.team11.PeerPlan.task.commands.AddSubtaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.commands.CreateTaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.commands.DeleteTaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.commands.RemoveSubtaskCommand;
+import be.ucll.craftsmanship.team11.PeerPlan.task.commands.UpdateTaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.queries.TaskQuery;
 import jakarta.validation.Valid;
 import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.Task;
@@ -39,6 +40,11 @@ public class TaskController {
     @PostMapping("/subtask")
     public void addSubtask(@RequestBody @Valid AddSubtaskCommand command) {
         commandHandler.handle(command);
+    }
+
+    @PutMapping
+    public Task updateTask(@RequestBody @Valid UpdateTaskCommand command) {
+        return commandHandler.handle(command);
     }
 
     @DeleteMapping("/subtask")

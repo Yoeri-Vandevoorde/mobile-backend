@@ -1,14 +1,16 @@
 package be.ucll.craftsmanship.team11.PeerPlan.task.application;
 
+import org.springframework.stereotype.Service;
+
 import be.ucll.craftsmanship.team11.PeerPlan.task.commands.AddSubtaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.commands.CreateTaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.commands.DeleteTaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.commands.RemoveSubtaskCommand;
+import be.ucll.craftsmanship.team11.PeerPlan.task.commands.UpdateTaskCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.Subtask;
 import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.Task;
 import be.ucll.craftsmanship.team11.PeerPlan.task.infrastructure.TaskRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
 
 @Service
 public class TaskCommandHandler {
@@ -50,5 +52,24 @@ public class TaskCommandHandler {
                 .ifPresent(task::removeSubtask);
 
         taskRepository.save(task);
+    }
+
+    @Transactional
+    public Task handle(UpdateTaskCommand command) {
+        Task task = taskRepository.findById(command.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Task not found"));
+
+        task.setTitle(command.getTitle());
+        task.setStatus(command.getStatus());
+
+        // Update subtasks
+        command.getSubtasks().forEach(s -> {
+            Subtask sub = task.findSubtaskById(s.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Subtask not found"));
+            sub.setTitle(s.getTitle());
+            sub.setStatus(s.getStatus());
+        });
+
+        return taskRepository.save(task);
     }
 }
