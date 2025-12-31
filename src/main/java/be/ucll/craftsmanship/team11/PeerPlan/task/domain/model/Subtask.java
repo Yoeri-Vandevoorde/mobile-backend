@@ -1,12 +1,19 @@
 package be.ucll.craftsmanship.team11.PeerPlan.task.domain.model;
 
-import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.valueObjects.SubtaskId;
+import org.springframework.util.Assert;
+
 import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.valueObjects.Status;
-import jakarta.persistence.*;
+import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.valueObjects.SubtaskId;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import org.springframework.util.Assert;
 
 @Entity
 @Data
@@ -24,6 +31,7 @@ public class Subtask implements Workable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Task task;
 
     public Subtask(String title) {
@@ -31,6 +39,7 @@ public class Subtask implements Workable {
         this.id = new SubtaskId();
         this.title = title;
     }
-    protected Subtask() {}
-}
 
+    protected Subtask() {
+    }
+}
