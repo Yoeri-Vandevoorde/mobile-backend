@@ -64,7 +64,8 @@ public class UserCommandHandler {
         return new AuthenticationResponse(
                 "Authentication successful.",
                 token,
-                user.getUsername()
+                user.getUsername(),
+                user.getId()
         );
     }
 
