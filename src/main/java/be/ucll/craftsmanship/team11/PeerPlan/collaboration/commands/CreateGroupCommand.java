@@ -1,8 +1,8 @@
 package be.ucll.craftsmanship.team11.PeerPlan.collaboration.commands;
 
-import be.ucll.craftsmanship.team11.PeerPlan.identity.domain.valueObjects.UserId;
+import java.util.UUID;
 
 public record CreateGroupCommand (
-        UserId userId,
+        UUID userId,
         String groupName
 ) {}

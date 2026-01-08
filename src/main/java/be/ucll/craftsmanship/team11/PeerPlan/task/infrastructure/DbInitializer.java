@@ -1,12 +1,12 @@
 package be.ucll.craftsmanship.team11.PeerPlan.task.infrastructure;
 
-import be.ucll.craftsmanship.team11.PeerPlan.identity.infrastructure.UserRepository;
-import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.Subtask;
-import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.Task;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import be.ucll.craftsmanship.team11.PeerPlan.identity.infrastructure.UserRepository;
+import be.ucll.craftsmanship.team11.PeerPlan.task.domain.model.Task;
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
@@ -23,16 +23,43 @@ public class DbInitializer implements CommandLineRunner {
         var users = userRepository.findAll();
         if (users.isEmpty()) return;
 
-        // Task for individual user
-        Task userTask = new Task(
-                "User Task",
-                users.get(0).getId() // assign to a single user
+        var mainUser = users.get(0);
+
+        // Task 1: Complete Database Assignment
+        Task task1 = new Task(
+                "Complete Database Assignment",
+                mainUser.getId()
         );
-        userTask.addSubtask(new Subtask("User Subtask 1"));
-        userTask.addSubtask(new Subtask("User Subtask 2"));
+        taskRepository.save(task1);
 
-        taskRepository.save(userTask);
+        // Task 2: Study for Algorithms Exam
+        Task task2 = new Task(
+                "Study for Algorithms Exam",
+                mainUser.getId()
+        );
+        taskRepository.save(task2);
 
-        System.out.println(">>> Database initialized with a task (2 subtasks) for a user");
+        // Task 3: Submit Project Proposal
+        Task task3 = new Task(
+                "Submit Project Proposal",
+                mainUser.getId()
+        );
+        taskRepository.save(task3);
+
+        // Task 4: Read Chapter 5-7
+        Task task4 = new Task(
+                "Read Chapter 5-7",
+                mainUser.getId()
+        );
+        taskRepository.save(task4);
+
+        // Task 5: Group Presentation Prep
+        Task task5 = new Task(
+                "Group Presentation Prep",
+                mainUser.getId()
+        );
+        taskRepository.save(task5);
+
+        System.out.println(">>> Database initialized with 5 tasks for the main user");
     }
 }

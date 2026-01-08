@@ -1,7 +1,8 @@
 package be.ucll.craftsmanship.team11.Peerplan.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +18,6 @@ import be.ucll.craftsmanship.team11.PeerPlan.collaboration.application.GroupQuer
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.domain.Group;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.domain.valueObjects.GroupId;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.infrastructure.GroupRepository;
-import be.ucll.craftsmanship.team11.PeerPlan.identity.domain.valueObjects.UserId;
 
 @ExtendWith(MockitoExtension.class)
 class GroupQueryHandlerTest {
@@ -28,11 +28,11 @@ class GroupQueryHandlerTest {
     @InjectMocks
     private GroupQueryHandler handler;
 
-    private UserId userId;
+    private UUID userId;
 
     @BeforeEach
     void setup() {
-        userId = new UserId(UUID.randomUUID());
+        userId = UUID.randomUUID();
     }
 
     @Test

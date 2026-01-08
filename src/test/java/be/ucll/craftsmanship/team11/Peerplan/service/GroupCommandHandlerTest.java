@@ -1,8 +1,11 @@
 package be.ucll.craftsmanship.team11.Peerplan.service;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -23,7 +26,6 @@ import be.ucll.craftsmanship.team11.PeerPlan.collaboration.commands.UpdateGroupC
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.domain.Group;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.domain.valueObjects.GroupId;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.infrastructure.GroupRepository;
-import be.ucll.craftsmanship.team11.PeerPlan.identity.domain.valueObjects.UserId;
 
 @ExtendWith(MockitoExtension.class)
 class GroupCommandHandlerTest {
@@ -34,13 +36,13 @@ class GroupCommandHandlerTest {
     @InjectMocks
     private GroupCommandHandler handler;
 
-    private UserId userId;
-    private UserId anotherUserId;
+    private UUID userId;
+    private UUID anotherUserId;
 
     @BeforeEach
     void setup() {
-        userId = new UserId(UUID.randomUUID());
-        anotherUserId = new UserId(UUID.randomUUID());
+        userId = UUID.randomUUID();
+        anotherUserId = UUID.randomUUID();
     }
 
     @Test

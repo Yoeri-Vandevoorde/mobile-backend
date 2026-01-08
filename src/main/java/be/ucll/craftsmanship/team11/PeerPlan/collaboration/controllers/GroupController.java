@@ -1,5 +1,16 @@
 package be.ucll.craftsmanship.team11.PeerPlan.collaboration.controllers;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.application.GroupCommandHandler;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.application.GroupQueryHandler;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.commands.AddMemberCommand;
@@ -8,10 +19,8 @@ import be.ucll.craftsmanship.team11.PeerPlan.collaboration.commands.DeleteGroupC
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.commands.RemoveMemberCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.commands.UpdateGroupCommand;
 import be.ucll.craftsmanship.team11.PeerPlan.collaboration.domain.Group;
-import org.springframework.web.bind.annotation.*;
-
+import be.ucll.craftsmanship.team11.PeerPlan.collaboration.domain.valueObjects.GroupId;
 import jakarta.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/groups")
@@ -27,7 +36,19 @@ public class GroupController {
 
     @GetMapping
     public List<Group> allGroups() {
-        return queryHandler.findAll();
+        List<Group> groups = queryHandler.findAll();
+        System.out.println(">>> Fetching all groups: " + groups.size() + " groups found");
+        for (Group g : groups) {
+            System.out.println("  - Group: " + g.getName() + " (id: " + g.getId() + ", members: " + g.getMembers().size() + ")");
+        }
+        return groups;
+    }
+
+    @GetMapping("/{id}")
+    public Group getGroupById(@PathVariable String id) {
+        Group group = queryHandler.findById(GroupId.from(id));
+        System.out.println(">>> Fetching group: " + group.getName() + " (id: " + id + ", members: " + group.getMembers().size() + ")");
+        return group;
     }
 
     @PostMapping("/create")
