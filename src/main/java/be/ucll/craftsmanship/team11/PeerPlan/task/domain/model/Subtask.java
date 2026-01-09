@@ -38,6 +38,7 @@ public class Subtask implements Workable {
         Assert.notNull(title, "Title must not be null");
         this.id = new SubtaskId();
         this.title = title;
+        this.status = Status.TODO;
     }
 
     public Subtask(String title, Status status) {

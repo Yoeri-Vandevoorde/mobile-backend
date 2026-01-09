@@ -24,6 +24,7 @@ public class GroupDbInitializer implements CommandLineRunner {
         if (users.isEmpty()) return;
 
         var owner = users.get(0).getId();
+        var owner2 = users.get(3).getId();
 
         Group csStudyGroup = new Group("CS Study Group", owner.id());
         for (int i = 1; i < Math.min(users.size(), 8); i++) {
@@ -36,8 +37,8 @@ public class GroupDbInitializer implements CommandLineRunner {
         dbProjectTeam.addMember(users.get(2).getId().id());
         groupRepository.save(dbProjectTeam);
 
-        Group algorithmCircle = new Group("Algorithms Study Circle", owner.id());
-        for (int i = 1; i < Math.min(users.size(), 6); i++) {
+        Group algorithmCircle = new Group("Algorithms Study Circle", owner2.id());
+        for (int i = 1; i < Math.min(users.size(), 2); i++) {
             algorithmCircle.addMember(users.get(i).getId().id());
         }
         groupRepository.save(algorithmCircle);
@@ -48,8 +49,8 @@ public class GroupDbInitializer implements CommandLineRunner {
         }
         groupRepository.save(mobileTeam);
 
-        Group ethicsGroup = new Group("Ethics in AI Discussion", owner.id());
-        for (int i = 1; i < Math.min(users.size(), 8); i++) {
+        Group ethicsGroup = new Group("Ethics in AI Discussion", owner2.id());
+        for (int i = 0; i < Math.min(users.size(), 1); i++) {
             ethicsGroup.addMember(users.get(i).getId().id());
         }
         groupRepository.save(ethicsGroup);
