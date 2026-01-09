@@ -31,6 +31,9 @@ public class UserDbInitializer implements CommandLineRunner {
         );
         Profile aliceProfile = new Profile();
         aliceProfile.setUser(alice);
+        aliceProfile.setBio("Alice is een student die van NULL houdt.");
+        aliceProfile.setYearOfStudy(1);
+        aliceProfile.setStudyProgram("Master of NULL");
         alice.setProfile(aliceProfile);
         userRepository.save(alice);
 
@@ -40,6 +43,7 @@ public class UserDbInitializer implements CommandLineRunner {
                 new UserEmail("emma@example.com"),
                 passwordEncoder.encode("password123")
         );
+        
         Profile emmaProfile = new Profile();
         emmaProfile.setUser(emma);
         emma.setProfile(emmaProfile);
