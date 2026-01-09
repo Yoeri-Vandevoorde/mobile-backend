@@ -79,15 +79,17 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(CorsProperties corsProperties) {
         final var configuration = new CorsConfiguration();
-        final var allowedOrigins = corsProperties.allowedOrigins().stream().map(URL::toString).toList();
-        configuration.setAllowedOrigins(allowedOrigins);
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        configuration.setAllowCredentials(true);
+        configuration.setAllowedOrigins(List.of("*")); 
+        configuration.setAllowCredentials(false);
+        configuration.setAllowedMethods(List.of("*")); 
+        configuration.setAllowedHeaders(List.of("*"));
+        
         final var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
 
     @Bean
     public SecretKey secretKey(JwtProperties jwtProperties) throws NoSuchAlgorithmException {
