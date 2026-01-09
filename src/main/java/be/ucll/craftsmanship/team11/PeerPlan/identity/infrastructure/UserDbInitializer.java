@@ -96,6 +96,16 @@ public class UserDbInitializer implements CommandLineRunner {
         olivia.setProfile(oliviaProfile);
         userRepository.save(olivia);
 
+        User harper = new User(
+                "Harper Lee",
+                new UserEmail("harper@example.com"),
+                passwordEncoder.encode("password123")
+        );
+        Profile harperProfile = new Profile();
+        harperProfile.setUser(harper);
+        harper.setProfile(harperProfile);
+        userRepository.save(harper);
+
         System.out.println(">>> Database initialized with 8 users (main user + 7 peers)");
     }
 }
