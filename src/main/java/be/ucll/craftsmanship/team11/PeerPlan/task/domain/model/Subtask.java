@@ -40,6 +40,13 @@ public class Subtask implements Workable {
         this.title = title;
     }
 
+    public Subtask(String title, Status status) {
+        Assert.notNull(title, "Title must not be null");
+        this.id = new SubtaskId();
+        this.title = title;
+        this.status = status;
+    }
+
     protected Subtask() {
     }
 }
